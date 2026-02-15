@@ -25,6 +25,10 @@
                 transform: rotate(360deg);
             }
         }
+
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -33,18 +37,25 @@
     <!-- Auth Modal -->
     <div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
-            <h2 id="authTitle" class="text-2xl font-bold mb-6">Sign Up</h2>
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="authTitle" class="text-2xl font-bold">Sign Up</h2>
+                <button onclick="closeAuthModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+
             <input type="email" id="authEmail" placeholder="Email"
                 class="w-full px-4 py-3 border-2 rounded-xl mb-4 outline-none focus:border-indigo-500">
             <input type="password" id="authPassword" placeholder="Password (min 8 chars)"
                 class="w-full px-4 py-3 border-2 rounded-xl mb-4 outline-none focus:border-indigo-500">
+
             <div id="authError" class="hidden mb-4 bg-red-50 border border-red-200 rounded-lg p-3 text-red-800 text-sm">
             </div>
+
             <button onclick="handleAuth()" id="authBtn"
                 class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold hover:bg-indigo-700 mb-4">
                 <span id="authBtnText">Sign Up</span>
             </button>
-            <button onclick="toggleAuth()" class="text-indigo-600 text-sm font-semibold">
+
+            <button onclick="toggleAuth()" class="text-indigo-600 text-sm font-semibold w-full text-center">
                 <span id="authToggle">Already have account? Login</span>
             </button>
         </div>
@@ -60,7 +71,7 @@
             <div class="flex justify-center gap-2 flex-wrap">
                 <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">100% FREE
                     Resources</span>
-                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Deep Internet
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Deep
                     Research</span>
                 <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">Only
                     ₹100</span>
@@ -83,7 +94,7 @@
                 <div class="flex gap-2">
                     <button onclick="buyCredits()"
                         class="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700">
-                        💳 Pay ₹100 & Get Roadmap
+                        💳 Pay ₹100 & Get Credit
                     </button>
                     <button onclick="logout()"
                         class="px-6 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300">
@@ -95,18 +106,18 @@
             <!-- Generator -->
             <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
                 <h2 class="text-xl font-bold mb-4">🎯 Get Your Learning Roadmap</h2>
-                <input type="text" id="skillInput" placeholder="Enter any skill (e.g., Machine Learning, Guitar)"
+                <input type="text" id="skillInput" placeholder="Enter any skill (e.g., Machine Learning)"
                     class="w-full px-4 py-3 border-2 rounded-xl mb-4 outline-none focus:border-indigo-500"
                     onkeypress="if(event.key==='Enter') generate()">
                 <button onclick="generate()" id="genBtn"
-                    class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-indigo-700">
+                    class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-indigo-700 disabled:opacity-50">
                     ✨ Generate Roadmap (1 Credit)
                 </button>
 
                 <div id="loading" class="hidden mt-6 text-center">
                     <div class="spinner mx-auto mb-3"></div>
-                    <p class="font-semibold">🔍 AI is researching the entire internet...</p>
-                    <p class="text-sm text-gray-500 mt-1">Finding best YouTube, courses, books, GitHub repos</p>
+                    <p class="font-semibold">🔍 AI is researching the internet...</p>
+                    <p class="text-sm text-gray-500 mt-1">Finding YouTube, courses, GitHub repos</p>
                     <p class="text-xs text-indigo-600 mt-2">Takes 30-60 seconds</p>
                 </div>
 
@@ -126,8 +137,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold">🎉 Your Roadmap is Ready!</h3>
-                        <p class="text-gray-600">Complete learning path from zero to expert</p>
+                        <h3 class="text-xl font-bold">🎉 Roadmap Ready!</h3>
+                        <p class="text-gray-600">Complete learning path generated</p>
                     </div>
                 </div>
                 <div class="bg-white rounded-xl p-4 mb-4">
@@ -150,7 +161,7 @@
                 </svg>
             </div>
             <h2 class="text-2xl font-bold mb-2">Get Started</h2>
-            <p class="text-gray-600 mb-6">Sign up to generate your first roadmap</p>
+            <p class="text-gray-600 mb-6">Sign up to generate AI-powered roadmaps</p>
             <div class="flex gap-3 justify-center">
                 <button onclick="openAuth('signup')"
                     class="px-8 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700">
@@ -171,11 +182,10 @@
                 <li>✓ <strong>YouTube channels</strong> with best tutorials</li>
                 <li>✓ <strong>Free courses</strong> from Coursera, edX, MIT</li>
                 <li>✓ <strong>GitHub repos</strong> and practice platforms</li>
-                <li>✓ <strong>Learning communities</strong> to join</li>
-                <li>✓ <strong>Zero to Industry Expert</strong> complete path</li>
+                <li>✓ <strong>Zero to Expert</strong> complete path</li>
             </ul>
             <p class="text-xs text-center mt-4 text-gray-600">
-                🚀 All resources are 100% FREE • Only pay ₹100 for research
+                🚀 All resources FREE • Pay ₹100 only for research
             </p>
         </div>
     </div>
@@ -184,15 +194,16 @@
         // CONFIG - UPDATE THESE!
         const API_URL = 'https://68hr5v49rj.execute-api.us-east-1.amazonaws.com';
         const RAZORPAY_KEY = 'rzp_live_RHVQ28pzyOyrJ0';
-
+    
         let state = {
             token: localStorage.getItem('token'),
-            user: null,
+            user: JSON.parse(localStorage.getItem('user') || 'null'),
             mode: 'signup'
         };
 
         function init() {
-            if (state.token) {
+            console.log('Initializing app...', state);
+            if (state.token && state.user) {
                 showUserSection();
             } else {
                 showLoginPrompt();
@@ -206,8 +217,16 @@
             state.mode = mode;
             document.getElementById('authTitle').textContent = mode === 'signup' ? 'Sign Up' : 'Log In';
             document.getElementById('authBtnText').textContent = mode === 'signup' ? 'Sign Up' : 'Log In';
-            document.getElementById('authToggle').textContent = mode === 'signup' ? 'Already have account? Login' : "Don't have account? Sign Up";
+            document.getElementById('authToggle').textContent = mode === 'signup' ?
+                'Already have account? Login' : "Don't have account? Sign Up";
+            document.getElementById('authEmail').value = '';
+            document.getElementById('authPassword').value = '';
+            document.getElementById('authError').classList.add('hidden');
             document.getElementById('authModal').classList.remove('hidden');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
         }
 
         function toggleAuth() {
@@ -224,10 +243,18 @@
                 return;
             }
 
-            document.getElementById('authBtn').disabled = true;
+            if (password.length < 8) {
+                showAuthError('Password must be at least 8 characters');
+                return;
+            }
+
+            const btn = document.getElementById('authBtn');
+            btn.disabled = true;
             document.getElementById('authBtnText').textContent = 'Please wait...';
 
             try {
+                console.log(`Attempting ${state.mode} for:`, email);
+
                 const res = await fetch(`${API_URL}/${state.mode}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -235,39 +262,51 @@
                 });
 
                 const data = await res.json();
+                console.log('Response:', data);
 
-                if (!res.ok) throw new Error(data.error);
+                if (!res.ok) throw new Error(data.error || 'Authentication failed');
 
+                // Save to state and localStorage
                 state.token = data.token;
                 state.user = data.user;
                 localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
 
-                document.getElementById('authModal').classList.add('hidden');
+                console.log('Login successful, closing modal...');
+
+                // Close modal and show user section
+                closeAuthModal();
                 showUserSection();
 
             } catch (error) {
+                console.error('Auth error:', error);
                 showAuthError(error.message);
             } finally {
-                document.getElementById('authBtn').disabled = false;
-                openAuth(state.mode);
+                btn.disabled = false;
+                document.getElementById('authBtnText').textContent = state.mode === 'signup' ? 'Sign Up' : 'Log In';
             }
         }
 
         function showAuthError(msg) {
-            document.getElementById('authError').textContent = msg;
-            document.getElementById('authError').classList.remove('hidden');
+            const errorDiv = document.getElementById('authError');
+            errorDiv.textContent = msg;
+            errorDiv.classList.remove('hidden');
         }
 
         function showUserSection() {
+            console.log('Showing user section for:', state.user);
             document.getElementById('loginPrompt').classList.add('hidden');
             document.getElementById('userSection').classList.remove('hidden');
+            document.getElementById('authModal').classList.add('hidden');
+
             if (state.user) {
                 document.getElementById('userEmail').textContent = state.user.email;
-                document.getElementById('credits').textContent = state.user.credits;
+                document.getElementById('credits').textContent = state.user.credits || 0;
             }
         }
 
         function showLoginPrompt() {
+            console.log('Showing login prompt');
             document.getElementById('userSection').classList.add('hidden');
             document.getElementById('loginPrompt').classList.remove('hidden');
         }
@@ -276,6 +315,7 @@
             state.token = null;
             state.user = null;
             localStorage.removeItem('token');
+            localStorage.removeItem('user');
             showLoginPrompt();
         }
 
@@ -286,12 +326,19 @@
                 return;
             }
 
+            if (!state.user || state.user.credits < 1) {
+                showError('Insufficient credits. Please purchase credits first.');
+                return;
+            }
+
             document.getElementById('loading').classList.remove('hidden');
             document.getElementById('error').classList.add('hidden');
             document.getElementById('downloadArea').classList.add('hidden');
             document.getElementById('genBtn').disabled = true;
 
             try {
+                console.log('Generating roadmap for:', skill);
+
                 const res = await fetch(`${API_URL}/generate`, {
                     method: 'POST',
                     headers: {
@@ -302,6 +349,7 @@
                 });
 
                 const data = await res.json();
+                console.log('Generate response:', data);
 
                 if (res.status === 401) {
                     logout();
@@ -309,10 +357,11 @@
                     return;
                 }
 
-                if (!res.ok) throw new Error(data.error);
+                if (!res.ok) throw new Error(data.error || 'Generation failed');
 
                 // Update credits
                 state.user.credits = data.remaining_credits;
+                localStorage.setItem('user', JSON.stringify(state.user));
                 document.getElementById('credits').textContent = data.remaining_credits;
 
                 // Show download
@@ -322,6 +371,7 @@
                 document.getElementById('downloadArea').scrollIntoView({ behavior: 'smooth' });
 
             } catch (error) {
+                console.error('Generate error:', error);
                 showError(error.message);
             } finally {
                 document.getElementById('loading').classList.add('hidden');
@@ -334,18 +384,23 @@
             document.getElementById('error').classList.remove('hidden');
         }
 
-        async function buyCredits() {
-            if (!state.user) return;
+        function buyCredits() {
+            if (!state.user) {
+                alert('Please login first');
+                return;
+            }
 
-            // Create Razorpay order (simplified - in production create order on backend first)
+            console.log('Opening Razorpay...');
+
             const options = {
                 key: RAZORPAY_KEY,
                 amount: 10000, // ₹100
                 currency: 'INR',
                 name: 'Skill Navigator',
-                description: '1 Learning Roadmap',
+                description: '1 Learning Roadmap Credit',
                 image: 'logo.png',
                 handler: async function (response) {
+                    console.log('Payment response:', response);
                     await verifyPayment(response);
                 },
                 prefill: {
@@ -353,15 +408,27 @@
                 },
                 theme: {
                     color: '#4F46E5'
+                },
+                modal: {
+                    ondismiss: function () {
+                        console.log('Payment cancelled');
+                    }
                 }
             };
 
-            const rzp = new Razorpay(options);
-            rzp.open();
+            try {
+                const rzp = new Razorpay(options);
+                rzp.open();
+            } catch (error) {
+                console.error('Razorpay error:', error);
+                alert('Payment gateway error. Please try again.');
+            }
         }
 
         async function verifyPayment(payment) {
             try {
+                console.log('Verifying payment...');
+
                 const res = await fetch(`${API_URL}/verify-payment`, {
                     method: 'POST',
                     headers: {
@@ -370,25 +437,29 @@
                     },
                     body: JSON.stringify({
                         razorpay_payment_id: payment.razorpay_payment_id,
-                        razorpay_order_id: payment.razorpay_order_id,
+                        razorpay_order_id: payment.razorpay_order_id || 'order_' + Date.now(),
                         razorpay_signature: payment.razorpay_signature
                     })
                 });
 
                 const data = await res.json();
+                console.log('Verify response:', data);
 
                 if (res.ok) {
                     state.user.credits = data.credits;
+                    localStorage.setItem('user', JSON.stringify(state.user));
                     document.getElementById('credits').textContent = data.credits;
-                    alert('✅ Payment successful!\n\n1 Credit added. You can now generate a roadmap!');
+                    alert('✅ Payment successful!\n\n1 Credit added. Generate your roadmap now!');
                 } else {
                     alert('❌ Payment verification failed. Please contact support.');
                 }
             } catch (error) {
+                console.error('Verify error:', error);
                 alert('❌ Error: ' + error.message);
             }
         }
 
+        // Initialize
         init();
     </script>
 </body>
