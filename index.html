@@ -226,8 +226,9 @@
         }
 
         function closeAuthModal() {
-            document.getElementById('authModal').classList.add('hidden');
-        }
+                document.getElementById('authModal').classList.add('hidden');
+                document.body.style.overflow = 'auto';  // Allow scrolling again
+            }
 
         function toggleAuth() {
             state.mode = state.mode === 'signup' ? 'login' : 'signup';
@@ -294,16 +295,24 @@
         }
 
         function showUserSection() {
-            console.log('Showing user section for:', state.user);
-            document.getElementById('loginPrompt').classList.add('hidden');
-            document.getElementById('userSection').classList.remove('hidden');
-            document.getElementById('authModal').classList.add('hidden');
+                console.log('Showing user section for:', state.user);
 
-            if (state.user) {
-                document.getElementById('userEmail').textContent = state.user.email;
-                document.getElementById('credits').textContent = state.user.credits || 0;
+                // CRITICAL: Hide modal first
+                document.getElementById('authModal').classList.add('hidden');
+
+                // Then show user section
+                document.getElementById('loginPrompt').classList.add('hidden');
+                document.getElementById('userSection').classList.remove('hidden');
+
+                // Update UI
+                if (state.user) {
+                    document.getElementById('userEmail').textContent = state.user.email;
+                    document.getElementById('credits').textContent = state.user.credits || 0;
+                }
+
+                // CRITICAL: Remove any lingering backdrop
+                document.body.style.overflow = 'auto';
             }
-        }
 
         function showLoginPrompt() {
             console.log('Showing login prompt');
@@ -363,6 +372,9 @@
                 state.user.credits = data.remaining_credits;
                 localStorage.setItem('user', JSON.stringify(state.user));
                 document.getElementById('credits').textContent = data.remaining_credits;
+
+                console.log('Credits updated to:', data.remaining_credits);
+
 
                 // Show download
                 document.getElementById('docTitle').textContent = data.skill_name + ' - Learning Roadmap';
